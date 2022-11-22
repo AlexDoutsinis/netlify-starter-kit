@@ -6,7 +6,7 @@ interface HttpMethod {
   delete: boolean;
 }
 
-export const httpMethod = (method: String): HttpMethod => {
+export const httpMethod = (method: string): HttpMethod => {
   const httpMethod: HttpMethod = {
     get: false,
     post: false,

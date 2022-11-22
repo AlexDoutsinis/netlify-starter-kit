@@ -1,17 +1,10 @@
 import { APIGatewayEvent, Context } from "aws-lambda";
 
 import globalMiddleware from "../lib/middleware/globalMiddleware";
-import { ok, throwResponse } from "../lib/helpers/httpResponse";
-import { httpMethod } from "../lib/helpers/httpMethod";
+import { ok } from "../lib/httpHelpers/httpResponse";
 
 async function hello(event: APIGatewayEvent, context: Context) {
-  const { get } = httpMethod(event.httpMethod);
-
-  if (get) {
-    return ok({ message: "Hello World" });
-  }
-
-  return throwResponse.notFound();
+  return ok({ message: "Hello World" });
 }
 
-export const handler = globalMiddleware(hello);
+export const handler = globalMiddleware(hello, ["get"]);
