@@ -12,9 +12,11 @@
     "@middy/http-event-normalizer": "^3.6.2",
     "@middy/http-json-body-parser": "^3.6.2",
     "@middy/validator": "^3.6.2",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "lambda-rate-limiter": "^3.0.1"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.108"
+    "@types/aws-lambda": "^8.10.108",
+    "@types/lambda-rate-limiter": "^3.0.0"
   }
 }
