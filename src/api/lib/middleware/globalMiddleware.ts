@@ -1,7 +1,7 @@
 import middy from "@middy/core";
 import httpJsonBodyParser from "@middy/http-json-body-parser";
 import httpEventNormalizer from "@middy/http-event-normalizer";
-import { Handler, APIGatewayEvent, Context, Callback } from "aws-lambda";
+import { Handler, Event, Context, Callback } from "../types/netlify";
 import rateLimiter from "../services/rateLimiter";
 
 function middleware(handler: Handler) {
@@ -9,7 +9,7 @@ function middleware(handler: Handler) {
 }
 
 export default function globalMiddleware(handler: Handler, allowedHttpMethods: string[]) {
-    return async (event: APIGatewayEvent, context: Context, callback: Callback) => {
+    return async (event: Event, context: Context, callback: Callback) => {
         allowedHttpMethods = allowedHttpMethods.map(x => x.toLowerCase())
         const notFound = !allowedHttpMethods.includes(event.httpMethod.toLowerCase())
         if (notFound) {

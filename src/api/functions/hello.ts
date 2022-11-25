@@ -1,10 +1,9 @@
-import { APIGatewayEvent, Context } from "aws-lambda";
-
+import { Event, Context } from '../lib/types/netlify';
 import globalMiddleware from "../lib/middleware/globalMiddleware";
 import { ok } from "../lib/httpHelpers/httpResponse";
 
-async function hello(event: APIGatewayEvent, context: Context) {
-  return ok({ message: "Hello World" });
+async function hello(event: Event, context: Context) {
+  return ok({message: "Hello world"});
 }
 
 export const handler = globalMiddleware(hello, ["get"]);

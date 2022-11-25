@@ -1,10 +1,4 @@
-interface HttpMethod {
-  get: boolean;
-  post: boolean;
-  put: boolean;
-  patch: boolean;
-  delete: boolean;
-}
+import { HttpMethod } from './../types/http';
 
 export const httpMethod = (method: string): HttpMethod => {
   const httpMethod: HttpMethod = {

@@ -1,7 +1,4 @@
-interface HttpSuccess {
-  statusCode: string;
-  body?: string;
-}
+import { HttpSuccess } from './../types/http';
 
 export const ok = (body?: object): HttpSuccess => {
   if (body) {
