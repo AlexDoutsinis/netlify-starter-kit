@@ -2,6 +2,8 @@ import { APIGatewayEvent, Context as AWSContext, Callback as AWSCallback, Handle
 
 export interface Event extends APIGatewayEvent {
     rawUrl: string;
+    params: any;
+    paramsAreEmpty: boolean;
 }
 
 export interface Context extends AWSContext {

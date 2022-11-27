@@ -1,5 +1,5 @@
 [build]
-  functions = "src/api/functions/"
+  functions = "src/api/routes/"
 
 [[redirects]]
   from = "/api/*"

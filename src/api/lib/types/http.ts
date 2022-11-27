@@ -6,7 +6,7 @@ export interface HttpMethod {
   delete: boolean;
 }
 
-export interface HttpSuccess {
+export interface HttpResponse {
   statusCode: string;
   body?: string;
 }
