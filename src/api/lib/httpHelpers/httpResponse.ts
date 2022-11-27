@@ -1,4 +1,4 @@
-import { HttpResponse } from './../types/http';
+import { HttpResponse } from '../types/http';
 
 export const ok = (body?: object): HttpResponse => {
   if (body) {
