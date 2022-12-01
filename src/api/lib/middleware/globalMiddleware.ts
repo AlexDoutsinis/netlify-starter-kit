@@ -1,15 +1,8 @@
-import middy from "@middy/core";
-import httpJsonBodyParser from "@middy/http-json-body-parser";
-import httpEventNormalizer from "@middy/http-event-normalizer";
 import createMatcher from 'feather-route-matcher'
 import { Handler, Event, Context, Callback } from "../types/netlify";
 import rateLimiter from "../services/rateLimiter";
 import { notFound } from "../httpHelpers/httpResponse";
 import { Routes } from './../types/router';
-
-function middleware(handler: Handler) {
-  return middy(handler).use([httpJsonBodyParser(), httpEventNormalizer()]);
-}
 
 export default function globalMiddleware(handler: Handler, allowedHttpMethods: string[], subRoutes?: Routes) {
     return async (event: Event, context: Context, callback: Callback) => {
@@ -71,6 +64,6 @@ export default function globalMiddleware(handler: Handler, allowedHttpMethods: s
             currentHandler = await currentRoute.value();
         }
 
-        return middleware(currentHandler)(event, context, callback);
+        return currentHandler(event, context, callback);
     }
 }

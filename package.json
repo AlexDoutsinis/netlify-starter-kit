@@ -8,10 +8,6 @@
   "author": "Alex Doutsinis <Alxdoutsinis@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@middy/core": "^3.6.2",
-    "@middy/http-event-normalizer": "^3.6.2",
-    "@middy/http-json-body-parser": "^3.6.2",
-    "@middy/validator": "^3.6.2",
     "dotenv": "^16.0.3",
     "feather-route-matcher": "^4.0.0",
     "lambda-rate-limiter": "^3.0.1"
