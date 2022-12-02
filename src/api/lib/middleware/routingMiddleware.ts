@@ -1,17 +1,17 @@
 import createMatcher from "feather-route-matcher";
 import { notFound } from "../httpHelpers/httpResponse";
-import { Event, Handler } from "../types/netlify";
-import { Routes } from "../types/router";
+import { Callback, Context, Event, Handler } from "../types/netlify";
+import { SubRoutes } from "../types/routing";
 
-
-export default async function routingMiddleware(event: Event, handler: Handler, subRoutes?: Routes) {
-        const handlerName = handler.name;
-        if (!event.path.includes(handlerName)) {
-            throw `globalMiddleware: the handler name must be the same with the route - ${handlerName} is not included in ${event.path}`;
+export default function routingMiddleware(handler: Handler, subRoutes?: SubRoutes) {
+  return async (event: Event, context: Context, callback: Callback) => {
+        const baseRoute = event.baseRoute;
+        if (!baseRoute || !event.path.includes(baseRoute)) {
+            throw `routingMiddleware - route '${baseRoute}' is not included in ${event.path}`;
         }
 
-        const indexRoute = `/api/${handlerName}`;
-        const indexRouteV2 = `/api/${handlerName}/`;
+        const indexRoute = `/api/${baseRoute}`;
+        const indexRouteV2 = `/api/${baseRoute}/`;
         const matcher: any = {};
         matcher[indexRoute] = handler;
         matcher[indexRouteV2] = handler;
@@ -44,5 +44,6 @@ export default async function routingMiddleware(event: Event, handler: Handler, 
             currentRouteHandler = await currentRoute.value();
         }
 
-        return currentRouteHandler;
+        return currentRouteHandler(event, context, callback);
+  };
 }

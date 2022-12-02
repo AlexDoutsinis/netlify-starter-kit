@@ -1,5 +1,5 @@
 import { Handler } from "./netlify";
 
-export interface Routes {
+export interface SubRoutes {
     [key: string]: Handler;
 }

@@ -1,7 +1,8 @@
 import { Event, Context } from '../lib/types/netlify';
 import globalMiddleware from "../lib/middleware/globalMiddleware";
 import { notFound, ok } from "../lib/httpHelpers/httpResponse";
-import { Routes } from '../lib/types/router';
+import { message } from '../subRoutes/hello/message';
+import { counter } from '../subRoutes/hello/counter';
 
 async function hello(event: Event, context: Context) {
   if (event.paramsAreEmpty) return notFound();
@@ -15,10 +16,10 @@ async function hello(event: Event, context: Context) {
   return ok(res);
 }
 
-const subRoutes: Routes = {
-  "/message": () => import("../subRoutes/hello/message").then(m => m.message),
-  "/counter/:id": () => import("../subRoutes/hello/counter").then(m => m.counter),
-  "/:id": hello
-}
+const subRoutes = {
+  "/message": message,
+  "/counter/:id": counter,
+  "/:id": hello,
+};
 
-export const handler = globalMiddleware(hello, ["get"], subRoutes);
+export const handler = globalMiddleware(hello, ["get"], subRoutes)
