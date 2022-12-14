@@ -16,9 +16,21 @@ async function hello(event: Event, context: Context) {
   return ok(res);
 }
 
+// const subRoutes = {
+//   "/message": message,
+//   "/counter/:id": counter,
+//   "/:id": hello,
+// };
+
 const subRoutes = {
-  "/message": message,
-  "/counter/:id": counter,
+  "/message": async (event: Event, context: Context) => {
+    const module = await import("../subRoutes/hello/message")
+    return module.message(event, context)
+  },
+  "/counter/:id": async (event: Event, context: Context) => {
+    const module = await import("../subRoutes/hello/counter")
+    return module.counter(event, context)
+  },
   "/:id": hello,
 };
 
