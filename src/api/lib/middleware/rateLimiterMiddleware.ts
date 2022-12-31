@@ -10,8 +10,6 @@ export default function rateLimiterMiddleware(handler: Handler) {
     const maxAmountOfRequestsAllowed = 10
     const ip = event.headers["client-ip"] as string
 
-    console.log("rate limiter")
-
     try {
       await rateLimit(maxAmountOfRequestsAllowed, ip)
     }

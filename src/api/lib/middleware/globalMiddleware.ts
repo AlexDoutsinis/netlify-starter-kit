@@ -6,7 +6,6 @@ import rateLimiterMiddleware from './rateLimiterMiddleware';
 import routingMiddleware from './routingMiddleware';
 import ensureHandlerNameMatchesWithBaseRouteMiddleware from './ensureHandlerNameMatchesWithBaseRouteMiddleware';
 
-
 export default function globalMiddleware(handler: Handler, allowedHttpMethods: string[], subRoutes?: SubRoutes) {
     const rootHandlerName = handler.name;
 

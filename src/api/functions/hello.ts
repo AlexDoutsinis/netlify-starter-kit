@@ -16,11 +16,11 @@ async function hello(event: Event, context: Context) {
 
 const subRoutes = {
   "/message": async (event: Event, context: Context) => {
-    const module = await import("../subRoutes/hello/message")
+    const module = await import("../subFunctions/hello/message")
     return module.message(event, context)
   },
   "/counter/:id": async (event: Event, context: Context) => {
-    const module = await import("../subRoutes/hello/counter")
+    const module = await import("../subFunctions/hello/counter")
     return module.counter(event, context)
   },
   "/:id": hello,
