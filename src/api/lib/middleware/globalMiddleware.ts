@@ -5,6 +5,7 @@ import httpMethodGuardMiddleware from './httpMethodGuardMiddleware';
 import rateLimiterMiddleware from './rateLimiterMiddleware';
 import routingMiddleware from './routingMiddleware';
 import ensureHandlerNameMatchesWithBaseRouteMiddleware from './ensureHandlerNameMatchesWithBaseRouteMiddleware';
+import errorCatcherMiddleware from "./errorCatcherMiddleware";
 
 
 export default function globalMiddleware(handler: Handler, allowedHttpMethods: string[], subRoutes?: SubRoutes) {
@@ -14,7 +15,8 @@ export default function globalMiddleware(handler: Handler, allowedHttpMethods: s
     handler = routingMiddleware(handler, subRoutes);
     handler = rateLimiterMiddleware(handler);
     handler = httpMethodGuardMiddleware(handler, allowedHttpMethods);
-    handler = ensureHandlerNameMatchesWithBaseRouteMiddleware(handler, rootHandlerName); // first middleware in the pipeline
+    handler = ensureHandlerNameMatchesWithBaseRouteMiddleware(handler, rootHandlerName); 
+    handler = errorCatcherMiddleware(handler); // first middleware in the pipeline
 
     return handler
 }
