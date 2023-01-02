@@ -3,15 +3,14 @@ import { notFound } from "../httpHelpers/httpResponse";
 import { Callback, Context, Event, Handler } from "../types/netlify";
 import { SubRoutes } from "../types/routing";
 
-export default function routingMiddleware(handler: Handler, subRoutes?: SubRoutes) {
+export default function routingMiddleware(handler: Handler, handlerName: string, subRoutes?: SubRoutes) {
   return async (event: Event, context: Context, callback: Callback) => {
-        const baseRoute = event.baseRoute;
-        if (!baseRoute || !event.path.includes(baseRoute)) {
-            throw `routingMiddleware - route '${baseRoute}' is not included in ${event.path}`;
-        }
+        if (!handlerName || !event.path.includes(handlerName)) {
+                throw `HandlerName '${handlerName}' is not included in path: '${event.path}'`;
+            }
 
-        const indexRoute = `/api/${baseRoute}`;
-        const indexRouteV2 = `/api/${baseRoute}/`;
+        const indexRoute = `/api/${handlerName}`;
+        const indexRouteV2 = `/api/${handlerName}/`;
         const matcher: any = {};
         matcher[indexRoute] = handler;
         matcher[indexRouteV2] = handler;

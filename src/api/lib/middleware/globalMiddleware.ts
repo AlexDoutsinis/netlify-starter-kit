@@ -4,19 +4,16 @@ import bodyParserMiddleware from './bodyParserMiddleware';
 import httpMethodGuardMiddleware from './httpMethodGuardMiddleware';
 import rateLimiterMiddleware from './rateLimiterMiddleware';
 import routingMiddleware from './routingMiddleware';
-import ensureHandlerNameMatchesWithBaseRouteMiddleware from './ensureHandlerNameMatchesWithBaseRouteMiddleware';
 import errorCatcherMiddleware from "./errorCatcherMiddleware";
 
-
 export default function globalMiddleware(handler: Handler, allowedHttpMethods: string[], subRoutes?: SubRoutes) {
-    const rootHandlerName = handler.name;
+    const handlerName = handler.name;
 
     handler = bodyParserMiddleware(handler)
-    handler = routingMiddleware(handler, subRoutes);
-    handler = rateLimiterMiddleware(handler);
+    handler = routingMiddleware(handler, handlerName, subRoutes);
     handler = httpMethodGuardMiddleware(handler, allowedHttpMethods);
-    handler = ensureHandlerNameMatchesWithBaseRouteMiddleware(handler, rootHandlerName); 
-    handler = errorCatcherMiddleware(handler); // first middleware in the pipeline
+    handler = errorCatcherMiddleware(handler); 
+    handler = rateLimiterMiddleware(handler); // first middleware in the pipeline
 
     return handler
 }

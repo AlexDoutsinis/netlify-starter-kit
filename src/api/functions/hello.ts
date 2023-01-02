@@ -27,8 +27,3 @@ const subRoutes = {
 };
 
 export const handler = globalMiddleware(hello, ["get"], subRoutes)
-
-// TODOS:
-// 1. fix edge env error
-// 2. check netlify.toml
-// 3. crete dev and prod envs. 'ensureHandlerNameMatchesWithBaseRouteMiddleware' should be executing only on dev env

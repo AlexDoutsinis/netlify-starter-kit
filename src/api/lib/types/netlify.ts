@@ -5,7 +5,6 @@ export interface Event extends APIGatewayEvent {
     params: any;
     paramsAreEmpty: boolean;
     parsedBody: any;
-    baseRoute: string;
 }
 
 export interface Context extends AWSContext {
